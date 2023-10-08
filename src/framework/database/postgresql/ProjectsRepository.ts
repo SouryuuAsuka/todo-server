@@ -52,16 +52,15 @@ export default class PrizeRepository {
   }
   async create(user_id: number, name: string, emoji: string): Promise<any[]> {
     const queryString = `
-      INSERT INTO todo_projects (owner, name, emoji, created, last_modified)
-      VALUES ($1, $2, $3, $4, $5)
+      INSERT INTO todo_projects (owner, name, emoji, created)
+      VALUES ($1, $2, $3, $4)
       RETURNING 
       project_id AS "project_id"
       , owner
       , name
       , emoji
-      , created
-      , last_modified AS "last_modified"`;
-    const { rows } = await this.pool.query(queryString, [user_id, name, emoji, "NOW()", "NOW()"]);
+      , created`;
+    const { rows } = await this.pool.query(queryString, [user_id, name, emoji, "NOW()"]);
     return rows;
   }
   async edit(project_id: number, name: string, emoji: string): Promise<any[]> {
