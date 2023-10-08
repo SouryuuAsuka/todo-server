@@ -10,6 +10,8 @@ export const projectRouter = (dependencies:IDependency) => {
   router.use(appInit);
 
   router.get('/', projectController.getController);
+  router.post('/', projectController.createController);
+  router.put('/', projectController.editController);
   router.get('/:projectId', projectController.getByIdController);
   return router;
 }
