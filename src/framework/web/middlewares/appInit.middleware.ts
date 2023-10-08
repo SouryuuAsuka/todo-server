@@ -1,6 +1,7 @@
 import * as cors from 'cors';
 import * as bodyParser from 'body-parser';
 import * as jwt from 'jsonwebtoken';
+import * as cookieParser from 'cookie-parser';
 
 const jwtAuth = (req, res, next) => {
   console.log("cookies - "+JSON.stringify(req.cookies));
@@ -33,6 +34,7 @@ const appInit = [
   cors({ credentials: true, origin: true }),
   bodyParser.urlencoded({ extended: false }), // parse application/x-www-form-urlencoded
   bodyParser.json(),  // parse application/json
+  cookieParser(),
   jwtAuth
 ]
 
