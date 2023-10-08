@@ -38,11 +38,13 @@ const userControllerCreate = (dependencies: IDependency) => {
       res.cookie('accessToken', accessToken, {
         domain: url.hostname,
         secure: false,
+        httpOnly: true,
         sameSite: 'None'
       })
       res.cookie('refreshToken', refreshToken, {
         domain: url.hostname,
         secure: false,
+        httpOnly: true,
         sameSite: 'None'
       })
       return res.status(200).json({
@@ -66,11 +68,13 @@ const userControllerCreate = (dependencies: IDependency) => {
       res.cookie('accessToken', accessToken, {
         domain: url.hostname,
         secure: false,
+        httpOnly: true,
         sameSite: 'None',
       })
       res.cookie('refreshToken', refreshToken, {
         domain: url.hostname,
         secure: false,
+        httpOnly: true,
         sameSite: 'None'
       })
       return res.status(200).json({
@@ -96,11 +100,13 @@ const userControllerCreate = (dependencies: IDependency) => {
       res.cookie('accessToken', accessToken, {
         domain: url.hostname,
         secure: false,
+        httpOnly: true,
         sameSite: 'None',
       })
       res.cookie('refreshToken', refreshToken, {
         domain: url.hostname,
         secure: false,
+        httpOnly: true,
         sameSite: 'None',
       })
       return res.status(200).json({
