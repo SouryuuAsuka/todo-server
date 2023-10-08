@@ -9,7 +9,7 @@ const userUseCase = (userRepository: IUserRepository, cryptoService: ICryptoServ
     }
     return user[0];
   }
-  const createUser = async (username: string, password: string, avatar: number) => {
+  const createUser = async (username: string, password: string, avatar: number = 1) => {
     const passHash = await cryptoService.getPasswordHash(password);
     const user = await userRepository.create(username, passHash, avatar);
     const hash = await cryptoService.generateHash(8);

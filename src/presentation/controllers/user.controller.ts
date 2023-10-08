@@ -33,7 +33,7 @@ const userControllerCreate = (dependencies: IDependency) => {
   const createController = async (req: any, res: any, next: any) => {
     try {
       const { username, password, avatar } = req.body;
-      const { accessToken, refreshToken, user } = await createUser(username, password, Number(avatar));
+      const { accessToken, refreshToken, user } = await createUser(username, password, avatar);
       res.cookie('accessToken', accessToken, {
         domain: process.env.SERVER_HOST,
       })
