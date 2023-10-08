@@ -6,9 +6,10 @@ import * as cookieParser from 'cookie-parser';
 const jwtAuth = (req, res, next) => {
   const authorization = (req.headers.authorization ||
     req.headers.Authorization)
-  const accessToken = authorization.split(' ')[1];
-  console.log("accessToken - " + accessToken);
-  if (accessToken && !(req.url.includes('/token') && req.method === 'POST')) {
+
+  if (authorization && !(req.url.includes('/token') && req.method === 'POST')) {
+    const accessToken = authorization.split(' ')[1];
+    console.log("accessToken - " + accessToken);
     jwt.verify(accessToken, process.env.ACCESS_KEY_SECRET, async function (err, decoded) {
       if (err) {
         return res.status(401).json({});
