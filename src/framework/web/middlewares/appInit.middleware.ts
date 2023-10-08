@@ -10,7 +10,8 @@ const jwtAuth = (req, res, next) => {
     throw new Error('there is no bearer token in the headers')
   }
 
-  const accessToken = authorization.split(' ')[1]
+  const accessToken = authorization.split(' ')[1];
+  console.log("accessToken - " + accessToken);
   if (accessToken && !(req.url.includes('/token') && req.method === 'GET')) {
     jwt.verify(accessToken, process.env.ACCESS_KEY_SECRET, async function (err, decoded) {
       if (err) {
@@ -24,7 +25,7 @@ const jwtAuth = (req, res, next) => {
         } else {
           res.locals.isAdmin = false;
         }
-        console.log("locals - "+JSON.stringify(res.locals));
+        console.log("locals - " + JSON.stringify(res.locals));
         next();
       }
     })
