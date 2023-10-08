@@ -44,7 +44,7 @@ const projectControllerCreate = (dependencies: IDependency) => {
   const createController = async (req: any, res: any, next: any) => {
     try {
       const { name, emoji } = req.body;
-      const projects = await createProject(req.locals.userId, name, emoji);
+      const projects = await createProject(res.locals.userId, name, emoji);
       return res.status(200).json({
         status: 'success',
         data: {

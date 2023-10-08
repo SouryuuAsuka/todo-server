@@ -15,7 +15,7 @@ const userControllerCreate = (dependencies: IDependency) => {
       if (res.locals.isAuth) {
         throw new Error('Пользователь не найден')
       }
-      const userId = req.locals.userId;
+      const userId = res.locals.userId;
       const user = await getUser(userId);
       return res.status(200).json({
         status: 'success',
