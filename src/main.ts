@@ -6,7 +6,7 @@ import dependency from '@configuration/projectDependencies';
 const PORT = 3000;
 const HOST = '0.0.0.0';
 const app: express.Express = express();
-app.use(express.static(__dirname + "/twa"));
+app.use('/static', express.static(__dirname + "/../dist"));
 
 app.listen(PORT, HOST, () => {
   console.log(`Running on http://${HOST}:${PORT}`);
