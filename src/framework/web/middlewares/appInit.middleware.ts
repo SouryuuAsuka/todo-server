@@ -11,7 +11,7 @@ const jwtAuth = (req, res, next) => {
         return res.status(401).json({});
       } else {
         res.locals.isAuth = true;
-        res.locals.userRole = decoded.role;
+        res.locals.user_role = decoded.role;
         res.locals.userId = decoded.id;
         if (decoded.role == 5 || decoded.role == 6) {
           res.locals.isAdmin = true;

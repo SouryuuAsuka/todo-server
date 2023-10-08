@@ -15,19 +15,19 @@ export default class UserRepository {
       user_id AS "user_id"
       , username
       , avatar
-      , user_role AS "userRole"
+      , user_role AS "user_role"
       , created `;
     const { rows } = await this.pool.query(queryString, ["NOW()", user_id]);
     return rows;
   }
-  async create(username: string, hash: string, avatar: number, userRole: number = 0): Promise<any[]> {
+  async create(username: string, hash: string, avatar: number, user_role: number = 0): Promise<any[]> {
     const queryString = `
       INSERT INTO todo_users (username, hash, avatar, user_role, created, last_update)
       VALUES ($1, $2, $3, $4, $5, $6) 
       RETURNING 
       user_id AS "user_id"
       , username`;
-    const { rowCount, rows } = await this.pool.query(queryString, [username, hash, avatar, userRole, "NOW()", "NOW()"]);
+    const { rowCount, rows } = await this.pool.query(queryString, [username, hash, avatar, user_role, "NOW()", "NOW()"]);
     if (rowCount == 0) throw new Error("Ошибка при создании пользователя");
     return rows;
   }
@@ -42,7 +42,7 @@ export default class UserRepository {
       user_id AS "user_id"
       , username
       , avatar
-      , user_role AS "userRole"
+      , user_role AS "user_role"
       , created`;
     const { rowCount, rows } = await this.pool.query(queryString, ["NOW()", username, hash]);
     if (rowCount == 0) throw new Error("Ошибка при обновлении пользователя");

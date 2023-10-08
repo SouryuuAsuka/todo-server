@@ -1,14 +1,14 @@
 import * as jwt from 'jsonwebtoken';
 
 export class JwtService {
-  async generateAccessToken(user_id: number, username: string, userRole: number): Promise<string> {
+  async generateAccessToken(user_id: number, username: string, user_role: number): Promise<string> {
     try {
-      console.log("generate AccessToken - "+ user_id +" "+username+ " "+ userRole)
+      console.log("generate AccessToken - "+ user_id +" "+username+ " "+ user_role)
       const accessToken = jwt.sign(
         {
           id: user_id,
           username,
-          role: userRole,
+          role: user_role,
         },
         process.env.ACCESS_KEY_SECRET,
         {

@@ -14,7 +14,7 @@ const userUseCase = (userRepository: IUserRepository, cryptoService: ICryptoServ
     const user = await userRepository.create(username, passHash, avatar);
     const hash = await cryptoService.generateHash(8);
     await userRepository.createRefreshToken(user[0].user_id, hash);
-    const accessToken = await tokenService.generateAccessToken(user[0].user_id, user[0].username, user[0].userRole);
+    const accessToken = await tokenService.generateAccessToken(user[0].user_id, user[0].username, user[0].user_role);
     const refreshToken = await tokenService.generateRefreshToken(user[0].user_id, hash);
     return { accessToken, refreshToken, user };
   }
@@ -23,7 +23,7 @@ const userUseCase = (userRepository: IUserRepository, cryptoService: ICryptoServ
     const user = await userRepository.sign(username, passHash);
     const hash = await cryptoService.generateHash(8);
     await userRepository.createRefreshToken(user[0].user_id, hash);
-    const accessToken = await tokenService.generateAccessToken(user[0].user_id, user[0].username, user[0].userRole);
+    const accessToken = await tokenService.generateAccessToken(user[0].user_id, user[0].username, user[0].user_role);
     const refreshToken = await tokenService.generateRefreshToken(user[0].user_id, hash);
     return { accessToken, refreshToken, user };
   }
@@ -32,7 +32,7 @@ const userUseCase = (userRepository: IUserRepository, cryptoService: ICryptoServ
     if(token.length === 0) throw new Error("Токен не найден");
     const newHash = await cryptoService.generateHash(8);
     const user = await userRepository.get(user_id);
-    const accessToken = await tokenService.generateAccessToken(user[0].user_id, user[0].username, user[0].userRole);
+    const accessToken = await tokenService.generateAccessToken(user[0].user_id, user[0].username, user[0].user_role);
     const refreshToken = await tokenService.generateRefreshToken(user[0].user_id, newHash);
     await userRepository.updateRefreshTokenById( token[0].tokenId, newHash);
     return { accessToken: accessToken, refreshToken: refreshToken };
