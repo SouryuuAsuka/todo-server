@@ -3,7 +3,7 @@ import * as bodyParser from 'body-parser';
 import * as jwt from 'jsonwebtoken';
 
 const jwtAuth = (req, res, next) => {
-  console.log(JSON.stringify(req.cookies));
+  console.log("cookies - "+JSON.stringify(req.cookies));
   if (req.cookies?.accessToken && !(req.url.includes('/token') && req.method === 'GET')) {
     jwt.verify(req.cookies?.accessToken, process.env.ACCESS_KEY_SECRET, async function (err, decoded) {
       if (err) {
@@ -13,11 +13,11 @@ const jwtAuth = (req, res, next) => {
         res.locals.userRole = decoded.userRole;
         res.locals.userId = decoded.userId;
         if (decoded.userRole == 5 || decoded.userRole == 6) {
-          res.locals.isAuth = true;
+          res.locals.isAdmin = true;
         } else {
           res.locals.isAdmin = false;
         }
-        console.log(JSON.stringify(res.locals));
+        console.log("locals - "+JSON.stringify(res.locals));
         next();
       }
     })
