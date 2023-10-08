@@ -35,10 +35,12 @@ const userControllerCreate = (dependencies: IDependency) => {
       const { username, password, avatar } = req.body;
       const { accessToken, refreshToken, user } = await createUser(username, password, avatar);
       res.cookie('accessToken', accessToken, {
-        domain: process.env.SERVER_HOST,
+        domain: req.hostname,
+        secure: false,
       })
       res.cookie('refreshToken', refreshToken, {
-        domain: process.env.SERVER_HOST,
+        domain: req.hostname,
+        secure: false,
       })
       return res.status(200).json({
         status: 'success',
@@ -58,10 +60,12 @@ const userControllerCreate = (dependencies: IDependency) => {
       const { username, password } = req.body;
       const { accessToken, refreshToken, user } = await signin(username, password);
       res.cookie('accessToken', accessToken, {
-        domain: process.env.SERVER_HOST,
+        domain: req.hostname,
+        secure: false,
       })
       res.cookie('refreshToken', refreshToken, {
-        domain: process.env.SERVER_HOST,
+        domain: req.hostname,
+        secure: false
       })
       return res.status(200).json({
         status: 'success',
@@ -83,10 +87,12 @@ const userControllerCreate = (dependencies: IDependency) => {
 
       const { accessToken, refreshToken } = await updateRefreshToken(id, hash);
       res.cookie('accessToken', accessToken, {
-        domain: process.env.SERVER_HOST,
+        domain: req.hostname,
+        secure: false,
       })
       res.cookie('refreshToken', refreshToken, {
-        domain: process.env.SERVER_HOST,
+        domain: req.hostname,
+        secure: false,
       })
       return res.status(200).json({
         status: 'success',
