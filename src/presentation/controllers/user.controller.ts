@@ -34,12 +34,13 @@ const userControllerCreate = (dependencies: IDependency) => {
     try {
       const { username, password, avatar } = req.body;
       const { accessToken, refreshToken, user } = await createUser(username, password, avatar);
+      let url = new URL(req.headers.origin);
       res.cookie('accessToken', accessToken, {
-        domain: '.'+req.headers.origin,
+        domain: '.'+url.host,
         secure: false,
       })
       res.cookie('refreshToken', refreshToken, {
-        domain: '.'+req.headers.origin,
+        domain: '.'+url.host,
         secure: false,
       })
       return res.status(200).json({
@@ -59,12 +60,13 @@ const userControllerCreate = (dependencies: IDependency) => {
     try {
       const { username, password } = req.body;
       const { accessToken, refreshToken, user } = await signin(username, password);
+      let url = new URL(req.headers.origin);
       res.cookie('accessToken', accessToken, {
-        domain: '.'+req.headers.origin,
+        domain: '.'+url.host,
         secure: false,
       })
       res.cookie('refreshToken', refreshToken, {
-        domain: '.'+req.headers.origin,
+        domain: '.'+url.host,
         secure: false
       })
       return res.status(200).json({
@@ -86,12 +88,13 @@ const userControllerCreate = (dependencies: IDependency) => {
       const { id, hash } = await tokenService.verifyRefreshToken(req.cookies.refreshToken);
 
       const { accessToken, refreshToken } = await updateRefreshToken(id, hash);
+      let url = new URL(req.headers.origin);
       res.cookie('accessToken', accessToken, {
-        domain: '.'+req.headers.origin,
+        domain: '.'+url.host,
         secure: false,
       })
       res.cookie('refreshToken', refreshToken, {
-        domain: '.'+req.headers.origin,
+        domain: '.'+url.host,
         secure: false,
       })
       return res.status(200).json({
