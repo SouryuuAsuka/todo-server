@@ -12,6 +12,6 @@ export const userRouter = (dependencies: IDependency) => {
   router.get('/', userController.getController);
   router.post('/signup', userController.createController);
   router.post('/signin', userController.signinController);
-  router.put('/token', userController.refreshTokenController);
+  router.get('/token', userController.refreshTokenController);
   return router;
 }
