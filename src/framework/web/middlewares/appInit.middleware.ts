@@ -17,6 +17,7 @@ const jwtAuth = (req, res, next) => {
         } else {
           res.locals.isAdmin = false;
         }
+        console.log(JSON.stringify(res.locals));
         next();
       }
     })
