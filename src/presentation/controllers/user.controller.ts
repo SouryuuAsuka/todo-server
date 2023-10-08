@@ -20,7 +20,7 @@ const userControllerCreate = (dependencies: IDependency) => {
       return res.status(200).json({
         status: 'success',
         data: {
-          user
+          user,
         },
       })
     } catch (err: any) {
@@ -34,23 +34,12 @@ const userControllerCreate = (dependencies: IDependency) => {
     try {
       const { username, password, avatar } = req.body;
       const { accessToken, refreshToken, user } = await createUser(username, password, avatar);
-      let url = new URL(req.headers.origin);
-      res.cookie('accessToken', accessToken, {
-        domain: url.hostname,
-        secure: true,
-        httpOnly: true,
-        sameSite: 'None'
-      })
-      res.cookie('refreshToken', refreshToken, {
-        domain: url.hostname,
-        secure: true,
-        httpOnly: true,
-        sameSite: 'None'
-      })
       return res.status(200).json({
         status: 'success',
         data: {
-          user
+          user,
+          accessToken,
+          refreshToken,
         }
       })
     } catch (err: any) {
@@ -64,23 +53,12 @@ const userControllerCreate = (dependencies: IDependency) => {
     try {
       const { username, password } = req.body;
       const { accessToken, refreshToken, user } = await signin(username, password);
-      let url = new URL(req.headers.origin);
-      res.cookie('accessToken', accessToken, {
-        domain: url.hostname,
-        secure: true,
-        httpOnly: true,
-        sameSite: 'None',
-      })
-      res.cookie('refreshToken', refreshToken, {
-        domain: url.hostname,
-        secure: true,
-        httpOnly: true,
-        sameSite: 'None'
-      })
       return res.status(200).json({
         status: 'success',
         data: {
-          user
+          user,
+          accessToken,
+          refreshToken,
         }
       })
     } catch (err: any) {
@@ -94,24 +72,13 @@ const userControllerCreate = (dependencies: IDependency) => {
     try {
       if (req.cookies.refreshToken === undefined) throw new Error("Unauthorized access.");
       const { id, hash } = await tokenService.verifyRefreshToken(req.cookies.refreshToken);
-
       const { accessToken, refreshToken } = await updateRefreshToken(id, hash);
-      let url = new URL(req.headers.origin);
-      res.cookie('accessToken', accessToken, {
-        domain: url.hostname,
-        secure: true,
-        httpOnly: true,
-        sameSite: 'None',
-      })
-      res.cookie('refreshToken', refreshToken, {
-        domain: url.hostname,
-        secure: true,
-        httpOnly: true,
-        sameSite: 'None',
-      })
       return res.status(200).json({
         status: 'success',
-        data: {}
+        data: {
+          accessToken,
+          refreshToken,
+        }
       })
     } catch (err: any) {
       return res.status(500).json({

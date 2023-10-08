@@ -4,9 +4,15 @@ import * as jwt from 'jsonwebtoken';
 import * as cookieParser from 'cookie-parser';
 
 const jwtAuth = (req, res, next) => {
-  console.log("cookies - "+JSON.stringify(req.cookies));
-  if (req.cookies?.accessToken && !(req.url.includes('/token') && req.method === 'GET')) {
-    jwt.verify(req.cookies?.accessToken, process.env.ACCESS_KEY_SECRET, async function (err, decoded) {
+  const authorization = (req.headers.authorization ||
+    req.headers.Authorization)
+  if (!authorization) {
+    throw new Error('there is no bearer token in the headers')
+  }
+
+  const accessToken = authorization.split(' ')[1]
+  if (accessToken && !(req.url.includes('/token') && req.method === 'GET')) {
+    jwt.verify(accessToken, process.env.ACCESS_KEY_SECRET, async function (err, decoded) {
       if (err) {
         return res.status(401).json({});
       } else {
