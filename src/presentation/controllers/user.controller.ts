@@ -12,7 +12,7 @@ const userControllerCreate = (dependencies: IDependency) => {
   } = userUseCase(userRepository, cryptoService, tokenService);
   const getController = async (req: any, res: any, next: any) => {
     try {
-      if (req.locals.isAuth) {
+      if (res.locals.isAuth) {
         throw new Error('Пользователь не найден')
       }
       const userId = req.locals.userId;
