@@ -70,8 +70,8 @@ const userControllerCreate = (dependencies: IDependency) => {
   }
   const refreshTokenController = async (req: any, res: any, next: any) => {
     try {
-      if (req.cookies.refreshToken === undefined) throw new Error("Unauthorized access.");
-      const { id, hash } = await tokenService.verifyRefreshToken(req.cookies.refreshToken);
+      if (req.body.refreshToken === undefined) throw new Error("Unauthorized access.");
+      const { id, hash } = await tokenService.verifyRefreshToken(req.body.refreshToken);
       const { accessToken, refreshToken } = await updateRefreshToken(id, hash);
       return res.status(200).json({
         status: 'success',
