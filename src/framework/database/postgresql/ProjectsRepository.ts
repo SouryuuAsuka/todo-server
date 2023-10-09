@@ -58,7 +58,7 @@ export default class PrizeRepository {
             JOIN todo_users AS u
             ON c.user_id = u.user_id
             WHERE c.task_id = t.task_id
-            ORDER BY created DESC
+            ORDER BY c.created DESC
           )
         )
       ) AS tasks
