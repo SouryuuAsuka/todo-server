@@ -28,9 +28,10 @@ export default class TaskRepository {
       , finished = $6
       , files = $7
       , subtasks = $8
-      WHERE task_id = $9`;
+      , last_update = &9
+      WHERE task_id = $10`;
     const { rowCount } = await this.pool.query(queryString,
-      [task.name, task.about, task.priority, task.status, projectId, task.finished, task.files, task.subtasks, taskId]);
+      [task.name, task.about, task.priority, task.status, projectId, task.finished, task.files, task.subtasks, "NOW()", taskId]);
     if (rowCount == 0) throw new Error("Ошибка при обновлении задачи");
     return true;
   }

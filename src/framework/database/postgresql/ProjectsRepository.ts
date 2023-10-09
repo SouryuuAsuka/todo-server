@@ -40,7 +40,10 @@ export default class PrizeRepository {
           'finished', t.finished, 
           'files', t.files, 
           'subtasks', t.subtasks, 
-          'creator', t.creator,
+          'creator_id', t.creator,
+          'creator_name', u.username,
+          'creator_avatar', u.avatar,
+          'last_update', t.last_update,
           'comments', (
             SELECT 
             json_agg( 
@@ -64,6 +67,8 @@ export default class PrizeRepository {
       FROM todo_projects AS p
       LEFT JOIN todo_tasks AS t
       ON p.project_id = t.project_id
+      LEFT JOIN todo_users AS u
+      ON t.creator = u.user_id
       WHERE p.project_id = $1
       GROUP BY p.project_id, p.owner, p.name, p.created, p.emoji`
     const { rows } = await this.pool.query(queryString, [project_id]);
