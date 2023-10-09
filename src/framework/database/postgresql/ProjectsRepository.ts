@@ -33,7 +33,7 @@ export default class PrizeRepository {
           'name', t.name, 
           'about',  t.about, 
           'priority',  t.priority, 
-          'status', t.acstatustive, 
+          'status', t.status, 
           'project_id', t.project_id, 
           'created', t.created, 
           'finished', t.finished, 
@@ -41,7 +41,7 @@ export default class PrizeRepository {
           'subtasks', t.subtasks, 
           'creator', g.creator
         )
-      ) AS goods
+      ) AS tasks
       FROM todo_projects AS p
       JOIN todo_tasks AS t
       ON p.project_id = t.project_id
