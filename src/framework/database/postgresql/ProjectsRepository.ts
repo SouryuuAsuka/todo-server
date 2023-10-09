@@ -46,7 +46,7 @@ export default class PrizeRepository {
       JOIN todo_tasks AS t
       ON p.project_id = t.project_id
       WHERE p.project_id = $1
-      GROUP BY p.project_id`
+      GROUP BY p.project_id, p.owner`
     const { rows } = await this.pool.query(queryString, [project_id]);
     return rows;
   }
