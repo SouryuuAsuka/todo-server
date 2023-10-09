@@ -30,8 +30,7 @@ export default class TaskRepository {
       , files = $7
       , subtasks = $8
       WHERE task_id = $9
-      ORDER BY created DESC
-      RETURNING *`;
+      ORDER BY created DESC `;
     const { rows } = await this.pool.query(queryString,
       [task.name, task.about, task.priority, task.status, projectId, task.files, task.subtasks, taskId]);
     return rows;
