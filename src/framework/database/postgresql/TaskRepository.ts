@@ -30,7 +30,7 @@ export default class TaskRepository {
       , subtasks = $8
       WHERE task_id = $9`;
     const { rowCount } = await this.pool.query(queryString,
-      [task.name, task.about, task.priority, task.status, projectId, task.files, task.subtasks, taskId]);
+      [task.name, task.about, task.priority, task.status, projectId, task.finished, task.files, task.subtasks, taskId]);
     if (rowCount == 0) throw new Error("Ошибка при обновлении задачи");
     return true;
   }
