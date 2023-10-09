@@ -7,7 +7,7 @@ const projectUseCase = (projectRepository: IProjectRepository) => {
   }
   const getByIdProject = async (project_id: number) => {
     const project = await projectRepository.getById(project_id);
-    return project;
+    return project[0];
   }
   const createProject = async (user_id: number, name: string, emoji: string) => {
     const projects = await projectRepository.create(user_id, name, emoji);
