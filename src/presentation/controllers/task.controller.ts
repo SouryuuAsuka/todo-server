@@ -12,6 +12,7 @@ const taskControllerCreate = (dependencies: IDependency) => {
       const task: Task = req.body?.task;
       const userId = Number(res.locals?.userId);
       const projectId = Number(req.params?.projectId);
+      console.log( "userId = " + res.locals?.userId + " ; projectId = "+ req.params?.projectId)
       if (!task) throw new Error('Task is undefined');
       await createTask(projectId, userId, task);
       return res.status(200).json({
