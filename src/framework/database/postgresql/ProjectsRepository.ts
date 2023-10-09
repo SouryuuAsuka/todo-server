@@ -44,7 +44,7 @@ export default class PrizeRepository {
         )
       ) AS tasks
       FROM todo_projects AS p
-      JOIN todo_tasks AS t
+      LEFT JOIN todo_tasks AS t
       ON p.project_id = t.project_id
       WHERE p.project_id = $1
       GROUP BY p.project_id, p.owner, p.name, p.created, p.emoji`
