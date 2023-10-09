@@ -20,6 +20,7 @@ export default class PrizeRepository {
     return rows;
   }
   async getById(project_id: number): Promise<any[]> {
+    console.log("project_id - "+project_id);
     const queryString = `
       SELECT 
       p.project_id AS project_id
