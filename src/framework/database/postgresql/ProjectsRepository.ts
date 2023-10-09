@@ -51,15 +51,16 @@ export default class PrizeRepository {
                   c.comment_id
                 , c.text
                 , c.user_id
-                , u.username
-                , u.avatar
+                , us.username
+                , us.user_id
+                , us.avatar
                 , c.root_comment
                 , c.created
               )
             )
             FROM todo_comments AS c
-            JOIN todo_users AS u
-            ON c.user_id = u.user_id
+            JOIN todo_users AS us
+            ON c.user_id = us.user_id
             WHERE c.task_id = t.task_id
           )
         )
