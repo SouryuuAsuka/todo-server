@@ -5,7 +5,7 @@ const taskUseCase = (taskRepository: ITaskRepository) => {
 
   const createTask = async (projectId: number, userId: number, task: Task) => {
     const tasks = await taskRepository.create(projectId, userId, task);
-    return { tasks }
+    return true
   }
   const editTask = async (taskId: number, projectId: number, task: Task) => {
     const tasks = await taskRepository.edit(taskId, projectId, task);

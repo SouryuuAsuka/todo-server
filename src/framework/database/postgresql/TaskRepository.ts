@@ -9,10 +9,10 @@ export default class TaskRepository {
   async create(projectId: number, userId: number, task: Task): Promise<boolean> {
     const queryString = `
       INSERT INTO todo_tasks
-      (name, about, priority, status, project_id, created, creator)
-      VALUES ($1, $2, $3, $4, $5, $6, $7, $8)`;
+      (name, about, priority, project_id, created, creator)
+      VALUES ($1, $2, $3, $4, $5, $6)`;
     const { rowCount } = await this.pool.query(queryString,
-      [task.name, task.about, task.priority, task.status, projectId, 'NOW()', userId]);
+      [task.name, task.about, task.priority, projectId, 'NOW()', userId]);
     if (rowCount == 0) throw new Error("Ошибка при сохранении результата");
     return true;
   }
