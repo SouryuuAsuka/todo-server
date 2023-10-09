@@ -9,9 +9,12 @@ const taskControllerCreate = (dependencies: IDependency) => {
   } = taskUseCase(taskRepository);
   const createController = async (req: any, res: any, next: any) => {
     try {
+      if (!res.locals.isAuth) {
+        throw new Error('Пользователь не найден')
+      }
       const task: Task = req.body?.task;
-      const userId = Number(res.locals?.userId);
-      const projectId = Number(req.params?.projectId);
+      const userId = Number(res.locals.userId);
+      const projectId = Number(req.params.projectId);
       console.log( "userId = " + res.locals?.userId + " ; projectId = "+ req.params?.projectId)
       if (!task) throw new Error('Task is undefined');
       await createTask(projectId, userId, task);
