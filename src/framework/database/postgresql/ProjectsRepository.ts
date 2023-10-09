@@ -41,6 +41,21 @@ export default class PrizeRepository {
           'files', t.files, 
           'subtasks', t.subtasks, 
           'creator', t.creator
+          'comments', (
+            SELECT 
+            c.comment_id
+            , c.text
+            , c.user_id
+            , u.username
+            , u.avatar
+            , c.root_comment
+            , created
+            FROM todo_comments AS c
+            JOIN todo_users AS u
+            ON c.user_id = u.user_id
+            WHERE c.task_id = t.task_id
+            ORDER BY created DESC
+          )
         )
       ) AS tasks
       FROM todo_projects AS p
