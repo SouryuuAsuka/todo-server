@@ -28,7 +28,7 @@ export default class TaskRepository {
       , finished = $6
       , files = $7
       , subtasks = $8
-      , last_update = &9
+      , last_update = $9
       WHERE task_id = $10`;
     const { rowCount } = await this.pool.query(queryString,
       [task.name, task.about, task.priority, task.status, projectId, task.finished, task.files, task.subtasks, "NOW()", taskId]);
