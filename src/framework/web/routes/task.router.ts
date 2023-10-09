@@ -9,7 +9,7 @@ export const taskRouter = (dependencies:IDependency) => {
 
   router.use(appInit);
 
-  router.post('/', taskController.createController);
-  router.patch('/:taskId', taskController.editController);
+  router.post('/:projectId/tasks', taskController.createController);
+  router.patch('/:projectId/tasks/:taskId', taskController.editController);
   return router;
 }

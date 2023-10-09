@@ -13,5 +13,5 @@ app.listen(PORT, HOST, () => {
 
 app.use('/api/users/', userRouter(dependency));
 app.use('/api/projects/', projectRouter(dependency));
-app.use('/api/projects/:projectId/tasks/', taskRouter(dependency));
-app.use('/api/projects/:projectId/tasks/:taskId/comments/', commentRouter(dependency));
+app.use('/api/projects/', taskRouter(dependency));
+app.use('/api/projects/', commentRouter(dependency));

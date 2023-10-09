@@ -9,7 +9,7 @@ export const commentRouter = (dependencies:IDependency) => {
 
   router.use(appInit);
 
-  router.get('/', commentController.getController);
-  router.post('/', commentController.createController);
+  router.get('/:projectId/tasks/:taskId/comments', commentController.getController);
+  router.post('/:projectId/tasks/:taskId/comments', commentController.createController);
   return router;
 }
