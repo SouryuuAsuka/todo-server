@@ -16,7 +16,7 @@ const userUseCase = (userRepository: IUserRepository, cryptoService: ICryptoServ
     await userRepository.createRefreshToken(user[0].user_id, hash);
     const accessToken = await tokenService.generateAccessToken(user[0].user_id, user[0].username, user[0].user_role);
     const refreshToken = await tokenService.generateRefreshToken(user[0].user_id, hash);
-    return { accessToken, refreshToken, user };
+    return { accessToken, refreshToken, user:user[0] };
   }
   const signin = async (username: string, password: string) => {
     const passHash = await cryptoService.getPasswordHash(password);
