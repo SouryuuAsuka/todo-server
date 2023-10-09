@@ -41,10 +41,10 @@ export default class PrizeRepository {
           'files', t.files, 
           'subtasks', t.subtasks, 
           'creator', t.creator,
-          'comments', array_to_string(
+          'comments', (
             SELECT 
-            array_agg(
-              concat(
+            json_agg( 
+              json_build_object(
                   c.comment_id
                 , c.text
                 , c.user_id
