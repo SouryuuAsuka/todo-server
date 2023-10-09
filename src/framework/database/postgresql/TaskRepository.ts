@@ -17,11 +17,10 @@ export default class TaskRepository {
     return true;
   }
 
-  async edit(taskId: number, projectId: number, task: Task): Promise<any[]> {
+  async edit(taskId: number, projectId: number, task: Task): Promise<boolean> {
     const queryString = `
       UPDATE todo_tasks
-      SET
-      name = $1
+      SET name = $1
       , about = $2
       , priority = $3
       , status = $4
@@ -29,10 +28,10 @@ export default class TaskRepository {
       , finished = $6
       , files = $7
       , subtasks = $8
-      WHERE task_id = $9
-      ORDER BY created DESC `;
-    const { rows } = await this.pool.query(queryString,
+      WHERE task_id = $9`;
+    const { rowCount } = await this.pool.query(queryString,
       [task.name, task.about, task.priority, task.status, projectId, task.files, task.subtasks, taskId]);
-    return rows;
+    if (rowCount == 0) throw new Error("Ошибка при обновлении задачи");
+    return true;
   }
 }
