@@ -9,7 +9,7 @@ export default class PrizeRepository {
   async get(): Promise<any[]> {
     const queryString = `
       SELECT 
-      project_id AS project_id
+      project_id AS "projectId"
       , owner
       , name
       , created
