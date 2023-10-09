@@ -20,7 +20,7 @@ export default class PrizeRepository {
     return rows;
   }
   async getById(project_id: number): Promise<any[]> {
-    console.log("project_id - "+project_id);
+    console.log("project_id - " + project_id);
     const queryString = `
       SELECT 
       p.project_id AS project_id
@@ -41,15 +41,19 @@ export default class PrizeRepository {
           'files', t.files, 
           'subtasks', t.subtasks, 
           'creator', t.creator,
-          'comments', ARRAY(
+          'comments', array_to_string(
             SELECT 
-            c.comment_id
-            , c.text
-            , c.user_id
-            , u.username
-            , u.avatar
-            , c.root_comment
-            , c.created
+            array_agg(
+              concat(
+                  c.comment_id
+                , c.text
+                , c.user_id
+                , u.username
+                , u.avatar
+                , c.root_comment
+                , c.created
+              )
+            )
             FROM todo_comments AS c
             JOIN todo_users AS u
             ON c.user_id = u.user_id
