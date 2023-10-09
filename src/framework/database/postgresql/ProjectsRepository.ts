@@ -49,7 +49,7 @@ export default class PrizeRepository {
             , u.username
             , u.avatar
             , c.root_comment
-            , created
+            , c.created
             FROM todo_comments AS c
             JOIN todo_users AS u
             ON c.user_id = u.user_id
