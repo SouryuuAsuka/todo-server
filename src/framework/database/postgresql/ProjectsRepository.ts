@@ -39,7 +39,7 @@ export default class PrizeRepository {
           'finished', t.finished, 
           'files', t.files, 
           'subtasks', t.subtasks, 
-          'creator', g.creator
+          'creator', t.creator
         )
       ) AS tasks
       FROM todo_projects AS p
