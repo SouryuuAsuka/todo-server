@@ -41,7 +41,7 @@ export default class PrizeRepository {
           'files', t.files, 
           'subtasks', t.subtasks, 
           'creator', t.creator,
-          'comments', (
+          'comments', ARRAY(
             SELECT 
             c.comment_id
             , c.text
