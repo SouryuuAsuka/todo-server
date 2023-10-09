@@ -40,7 +40,7 @@ export default class PrizeRepository {
           'finished', t.finished, 
           'files', t.files, 
           'subtasks', t.subtasks, 
-          'creator', t.creator
+          'creator', t.creator,
           'comments', (
             SELECT 
             c.comment_id
