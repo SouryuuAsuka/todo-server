@@ -22,6 +22,7 @@ app.use('/api/projects/', projectRouter(dependency));
 app.use('/api/projects/', taskRouter(dependency));
 app.use('/api/projects/', commentRouter(dependency));
 app.post('/api/files', upload.single('file'), (req:any, res) => {
+  console.log(JSON.stringify(req.file))
   let file = req.file;
   file.originalname = req.body.filename;
   fs.writeFile("../dist", file , function(err) {
