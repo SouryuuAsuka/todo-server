@@ -11,9 +11,14 @@ const taskUseCase = (taskRepository: ITaskRepository) => {
     const tasks = await taskRepository.edit(taskId, projectId, task);
     return { task: tasks[0] }
   }
+  const getTask = async (taskId: number) => {
+    const tasks = await taskRepository.get(taskId);
+    return { task: tasks[0] }
+  }
   return {
     createTask,
     editTask,
+    getTask
   }
 }
 

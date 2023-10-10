@@ -4,9 +4,27 @@ import { Task } from '@domain/interfaces';
 const taskControllerCreate = (dependencies: IDependency) => {
   const { taskRepository, projectRepository, userRepository } = dependencies.DatabaseService;
   const {
+    getTask,
     createTask,
     editTask,
   } = taskUseCase(taskRepository);
+    const getByIdController = async (req: any, res: any, next: any) => {
+    try {
+      const taskId = req.params.taskId;
+      const task = await getTask(taskId);
+      return res.status(200).json({
+        status: 'success',
+        data: {
+          task
+        },
+      })
+    } catch (err: any) {
+      return res.status(500).json({
+        status: 'error',
+        message: err.message ?? "Server error"
+      })
+    }
+  }
   const createController = async (req: any, res: any, next: any) => {
     try {
       if (!res.locals.isAuth) {
@@ -50,6 +68,7 @@ const taskControllerCreate = (dependencies: IDependency) => {
   return {
     createController,
     editController,
+    getByIdController
   }
 }
 

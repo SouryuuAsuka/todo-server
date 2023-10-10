@@ -50,7 +50,6 @@ export default class PrizeRepository {
               json_build_object(
                 'comment_id', c.comment_id
                 , 'text', c.text
-                , 'user_id', c.user_id
                 , 'username', us.username
                 , 'user_id', us.user_id
                 , 'avatar', us.avatar
