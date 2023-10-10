@@ -14,13 +14,15 @@ const projectControllerCreate = (dependencies: IDependency) => {
   const filesController = async (req: any, res: any, next: any) => {
     try {
       console.log(JSON.stringify(req.file));
-      let file = req.file;
-      console
-      fs.writeFile("../dist/"+req.body.filename, file.buffer, function (err) {
-        if (err) {
-          return console.log(err);
-        }
-        console.log("The file was saved!");
+      fs.readFile(req.file.path, function (err, data) {
+        if (err) throw err;
+        fs.writeFile("../dist/" + req.body.filename, data, function (err) {
+          if (err) {
+            return console.log(err);
+          }
+          console.log("The file was saved!");
+        });
+        console.log(data);
       });
       return res.status(200).json({
         status: 'success',
