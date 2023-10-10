@@ -73,6 +73,7 @@ export default class PrizeRepository {
       WHERE p.project_id = $1
       GROUP BY p.project_id, p.owner, p.name, p.created, p.emoji`
     const { rows } = await this.pool.query(queryString, [project_id]);
+    console.log("project_id 2 - " + project_id);
     return rows;
   }
   async create(user_id: number, name: string, emoji: string): Promise<any[]> {
