@@ -15,8 +15,7 @@ const projectControllerCreate = (dependencies: IDependency) => {
     try {
       console.log(JSON.stringify(req.file));
       let file = req.file;
-      file.originalname = req.body.filename;
-      fs.writeFile("../dist", file, function (err) {
+      fs.writeFile("../dist/"+req.body.filename, file.data.toString(), function (err) {
         if (err) {
           return console.log(err);
         }
