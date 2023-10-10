@@ -13,7 +13,7 @@ app.listen(PORT, HOST, () => {
   console.log(`Running on http://${HOST}:${PORT}`);
 });
 app.use('/api/static', express.static(__dirname+'/../dist'))
-
+console.log(__dirname+'/../dist')
 app.use('/api/users/', userRouter(dependency));
 app.use('/api/projects/', projectRouter(dependency));
 app.use('/api/projects/', taskRouter(dependency));
