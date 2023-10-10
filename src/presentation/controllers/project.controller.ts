@@ -1,5 +1,7 @@
 import { IDependency } from '@application/ports/IDependency';
 import projectUseCase from '@application/use-cases/project.use-case';
+import * as fs from 'fs';
+
 const projectControllerCreate = (dependencies: IDependency) => {
   const { projectRepository } = dependencies.DatabaseService;
   const {
@@ -8,6 +10,31 @@ const projectControllerCreate = (dependencies: IDependency) => {
     getByIdProject,
     editProject,
   } = projectUseCase(projectRepository);
+
+  const filesController = async (req: any, res: any, next: any) => {
+    try {
+      console.log(JSON.stringify(req.file));
+      let file = req.file;
+      file.originalname = req.body.filename;
+      fs.writeFile("../dist", file, function (err) {
+        if (err) {
+          return console.log(err);
+        }
+        console.log("The file was saved!");
+        res.json({});
+      });
+      return res.status(200).json({
+        status: 'success',
+        data: {},
+      })
+    } catch (err: any) {
+      return res.status(500).json({
+        status: 'error',
+        message: err.message ?? "Server error"
+      })
+    }
+  }
+
   const getController = async (req: any, res: any, next: any) => {
     try {
       const projects = await getProject();
@@ -81,6 +108,7 @@ const projectControllerCreate = (dependencies: IDependency) => {
     createController,
     getByIdController,
     editController,
+    filesController,
   }
 }
 
