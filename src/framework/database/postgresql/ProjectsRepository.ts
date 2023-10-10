@@ -48,14 +48,14 @@ export default class PrizeRepository {
             SELECT 
             json_agg( 
               json_build_object(
-                  c.comment_id
-                , c.text
-                , c.user_id
-                , us.username
-                , us.user_id
-                , us.avatar
-                , c.root_comment
-                , c.created
+                'comment_id', c.comment_id
+                , 'text, c.text
+                , 'user_id, c.user_id
+                , 'username', us.username
+                , 'user_id', us.user_id
+                , 'avatar', us.avatar
+                , 'root_comment', c.root_comment
+                , 'created', c.created
               )
             )
             FROM todo_comments AS c
