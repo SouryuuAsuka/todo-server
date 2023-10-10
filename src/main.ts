@@ -4,6 +4,7 @@ import { projectRouter, taskRouter, commentRouter, userRouter } from '@framework
 import dependency from '@configuration/projectDependencies';
 import * as fs from 'fs';
 import * as os from 'os';
+import appInit from '@framework/web/middlewares/appInit.middleware';
 
 const multer  = require('multer');
 const upload = multer({ dest: os.tmpdir() });
@@ -21,7 +22,8 @@ app.use('/api/users/', userRouter(dependency));
 app.use('/api/projects/', projectRouter(dependency));
 app.use('/api/projects/', taskRouter(dependency));
 app.use('/api/projects/', commentRouter(dependency));
-app.post('/api/files', upload.single('file'), (req:any, res) => {
+
+app.post('/api/files', [...appInit, upload.single('file')], (req:any, res) => {
   console.log(JSON.stringify(req.file));
   let file = req.file;
   file.originalname = req.body.filename;
