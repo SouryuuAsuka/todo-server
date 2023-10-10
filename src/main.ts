@@ -12,7 +12,7 @@ const app: express.Express = express();
 app.listen(PORT, HOST, () => {
   console.log(`Running on http://${HOST}:${PORT}`);
 });
-app.use('/api/static', express.static('../dist'))
+app.use('/api/static', express.static(__dirname+'/../dist'))
 
 app.use('/api/users/', userRouter(dependency));
 app.use('/api/projects/', projectRouter(dependency));
