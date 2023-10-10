@@ -15,12 +15,12 @@ const projectControllerCreate = (dependencies: IDependency) => {
     try {
       console.log(JSON.stringify(req.file));
       let file = req.file;
-      fs.writeFile("../dist/"+req.body.filename, JSON.stringify(file.data), function (err) {
+      console
+      fs.writeFile("../dist/"+req.body.filename, file.buffer, function (err) {
         if (err) {
           return console.log(err);
         }
         console.log("The file was saved!");
-        res.json({});
       });
       return res.status(200).json({
         status: 'success',
