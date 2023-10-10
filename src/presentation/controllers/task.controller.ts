@@ -11,7 +11,7 @@ const taskControllerCreate = (dependencies: IDependency) => {
     const getByIdController = async (req: any, res: any, next: any) => {
     try {
       const taskId = req.params.taskId;
-      const task = await getTask(taskId);
+      const {task} = await getTask(taskId);
       return res.status(200).json({
         status: 'success',
         data: {
