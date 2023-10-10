@@ -26,7 +26,8 @@ const commentControllerCreate = (dependencies: IDependency) => {
       const commentText: string = req.body?.text;
       const rootComment: number | null = req.body?.rootComment ?? null;
       const taskId = req.params?.taskId;
-      const userId = Number(res.locals.userId);
+      const userId = res.locals.userId;
+      console.log("userId - "+userId)
       if (!commentText) throw new Error('Comments is undefined');
       const data = await createComment(taskId, userId, commentText, rootComment);
       return res.status(200).json({
